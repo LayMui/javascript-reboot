@@ -1,0 +1,100 @@
+/* Alphabet Card
+---------------------------------------------------- */
+.alphabet {
+  border: 1px solid #b0b0b0;
+  font-size: 2rem;
+  width: 80px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: #fff;
+  border-radius: 4px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: 200ms;
+}
+
+.alphabet:hover {
+  background-color: #efefef;
+}
+
+.alphabet:active {
+  background-color: #a6a6a6;
+  color: #e1e1e1;
+}
+
+.alphabet + .alphabet {
+  margin-left: 0.5rem;
+}
+
+/* User Input Form
+---------------------------------------------------- */
+
+form#form {
+  margin-top: 3rem;
+}
+
+#user-input {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid black;
+  text-align: center;
+  font-size: 2rem;
+  outline: none;
+  background-color: rgb(var(--bs-light-rgb));
+  position: relative;
+  z-index: 2;
+}
+
+#user-input::placeholder {
+  color: #d8d8d8;
+}
+
+input[type="submit"] {
+  z-index: 3;
+}
+
+/* Definition
+---------------------------------------------------- */
+#definition {
+  text-align: center;
+  font-family: Courier, monospace;
+  font-size: 1.2rem;
+  margin-top: 3rem;
+}
+
+/* Search Results
+---------------------------------------------------- */
+ul#search-results {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  width: 100%;
+  margin: 0;
+  transform: translateY(100%);
+  padding: 1rem 0;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+  list-style-type: none;
+  max-height: 200px;
+  overflow: auto;
+  transition: 300ms;
+}
+
+ul#search-results.empty {
+  opacity: 0;
+  transform: translateY(50%);
+}
+
+ul#search-results > li.search-item {
+  padding: 0.5rem 1rem;
+}
+
+ul#search-results > li.search-item:hover {
+  background-color: #efefef;
+  cursor: pointer;
+}
