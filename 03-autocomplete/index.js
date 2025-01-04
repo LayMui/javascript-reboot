@@ -31,24 +31,26 @@ const suggestedList = document.querySelector("#search-results")
   functions or used in callbacks
 ---------------------------------------------------- */
 // const myCallback = (e) => { e.preventDefault() }
-const getDefinition = (e) => {
-
-
+const getDefinition = () => {
   const url = `${apiUrl}/${userInput.value}`;
 
   fetch(url)
     .then(response => response.json())
     .then((responseData) => {
-      definitionOutput.innerText = responseData[0].meanings[0].definitions[0].definition;
-      definitionSearch.innerText = userInput.value;
+     // console.log(responseData)
+      if (responseData.title === "No Definitions Found") {
+          definitionOutput.innerText = responseData.message
+          definitionSearch.innerText = responseData.title;
+      } else {
+        definitionOutput.innerText = responseData[0].meanings[0].definitions[0].definition;
+        definitionSearch.innerText = userInput.value;
+      }
     });
 
 }
 
-
 const virtualKeyBoard = (e) => {
    userInput.value += e.currentTarget.innerText.toLowerCase()
-
 
 }
 
@@ -67,7 +69,11 @@ const handleInputChange = (e) => {
 ---------------------------------------------------- */
 // document.addEventListener('DOMContentLoaded', myCallback)
 userInput.addEventListener("input", handleInputChange);
-form.addEventListener("submit", getDefinition);
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  getDefinition
+
+})
 
 alphabet.forEach((key) => {
   key.addEventListener("click", virtualKeyBoard);
