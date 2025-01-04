@@ -7,6 +7,8 @@
   ! key thing to remember is that these only run once!
 ---------------------------------------------------- */
 // const definitionApi = "some-endpoint.com"
+const apiUrl = "https://api.dictionaryapi.dev/api/v2/entries/en";
+
 
 /* --------- DOM Selectors ---------
 ----------------------------------------------------
@@ -14,7 +16,10 @@
   selectors that we will need.
 ---------------------------------------------------- */
 // const element = document.querySelector("#someId")
+const form = document.querySelector("#form")
 const userInput = document.querySelector("#user-input")
+const definitionOutput = document.querySelector("#definition p")
+const submitDefinition = document.querySelector(".btn.btn-primary.position-absolute.end-0.z-")
 
 /* --------- Function Declarations ---------
 ----------------------------------------------------
@@ -24,6 +29,27 @@ const userInput = document.querySelector("#user-input")
   functions or used in callbacks
 ---------------------------------------------------- */
 // const myCallback = (e) => { e.preventDefault() }
+const getDefinition = (e) => {
+
+
+  const url = `${apiUrl}/${userInput.value}`;
+
+  fetch(url)
+    .then(response => response.json())
+    .then((responseData) => {
+      definitionOutput.innerText = responseData[0].meanings[0].definitions[0].definition;
+    });
+
+}
+
+
+const handleInputChange = (e) => {
+  let debounceTimeout;
+
+  clearTimeout(debounceTimeout);
+
+  debounceTimeout = setTimeout(getDefinition, 300);
+};
 
 /* --------- Actions ---------
 ----------------------------------------------------
@@ -31,3 +57,5 @@ const userInput = document.querySelector("#user-input")
   intervals, etc
 ---------------------------------------------------- */
 // document.addEventListener('DOMContentLoaded', myCallback)
+userInput.addEventListener("input", handleInputChange);
+form.addEventListener("submit", getDefinition);
